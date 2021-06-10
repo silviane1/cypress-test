@@ -21,11 +21,35 @@ describe("Tickets", () => {
         cy.get("#vip").check();
     });
 
-    it.only("selects 'social media' and 'publication', then uncheck 'publication'", () => {
+    it("selects 'social media' and 'publication', then uncheck 'publication'", () => {
         cy.get("#social-media").check();
         cy.get("#publication").check();
         cy.get("#publication").uncheck();
     });
 
-    it("has 'TICKETBOX' header's heading", () => {});
+    it("has 'TICKETBOX' header's heading", () => {
+        cy.get("header h1").should("contain", "TICKETBOX");
+    });
+
+    it("has 'TICKETBOX' header's heading", () => {
+        cy.get("#email").type("silviane--gmail.com");
+
+        cy.get("#email.invalid").should("exist");
+        
+    });
+
+    it.only("alerts on invalid email", () => {
+        cy.get("#email")
+          .as("email")
+          .type("silviane--gmail.com");
+
+        cy.get("#email.invalid").should("exist");
+
+        cy.get("@email")
+          .clear()
+          .type("silvsbritos@gmail.com");
+
+        cy.get("#email.invalid").should("not.exist");
+        
+    });
 });
